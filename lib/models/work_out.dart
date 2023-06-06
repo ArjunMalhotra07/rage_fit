@@ -39,10 +39,18 @@ class Count with _$Count {
 
 class WorkOutLogProvider extends ChangeNotifier {
   WorkOuts _workoutVar = const WorkOuts(workOutsVar: [
-    WorkOut(workoutName: WorkOutTypes.benchPress, warmupRows: [], setRows: []),
-    WorkOut(workoutName: WorkOutTypes.latPullDown, warmupRows: [], setRows: []),
     WorkOut(
-        workoutName: WorkOutTypes.overheadPress, warmupRows: [], setRows: [])
+        workoutName: WorkOutTypes.benchPress,
+        warmupRows: [Count(weight: 0, reps: 0)],
+        setRows: []),
+    WorkOut(
+        workoutName: WorkOutTypes.latPullDown,
+        warmupRows: [Count(weight: 0, reps: 0)],
+        setRows: []),
+    WorkOut(
+        workoutName: WorkOutTypes.overheadPress,
+        warmupRows: [Count(weight: 0, reps: 0)],
+        setRows: [])
   ]);
   WorkOuts get workouts => _workoutVar;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
+import 'package:rage_fit/views/templates/workout_tile.dart';
 import '../logic/utils/constants.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -38,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             //! Name + Question Mark + More Info
+                            const SizedBox(height: 20),
                             Row(
                               children: [
                                 Text(
@@ -92,10 +94,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .asMap()
                                                 .entries
                                                 .map((entry) {
-                                              final index = entry.key;
+                                              final index1 = entry.key;
                                               final row = entry.value;
-                                              return returnWorkOutInfoRow(
-                                                  row, index);
+                                              return WorkoutRowTile(
+                                                workOutName:
+                                                    listOfWorkOuts[index],
+                                                index: index1,
+                                                row: row,
+                                                type: RowType.warmUp,
+                                              );
                                             }),
                                           ]),
                                 ],
@@ -139,10 +146,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .asMap()
                                                 .entries
                                                 .map((entry) {
-                                              final index = entry.key;
+                                              final index1 = entry.key;
                                               final row = entry.value;
-                                              return returnWorkOutInfoRow(
-                                                  row, index);
+                                              return WorkoutRowTile(
+                                                workOutName:
+                                                    listOfWorkOuts[index],
+                                                index: index1,
+                                                row: row,
+                                                type: RowType.setRow,
+                                              );
                                             }),
                                           ]),
                                 ],
@@ -156,35 +168,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   }),
             )));
-  }
-
-  Widget returnWorkOutInfoRow(Count row, int index) {
-    return SizedBox(
-        height: 60,
-        child: Column(
-          children: [
-            const Divider(color: Colors.black),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "${index + 1}.",
-                  style: appUtilities.textStyleFunc(),
-                ),
-                const SizedBox(width: 100),
-                Text(
-                  '${row.reps} reps',
-                  style: appUtilities.textStyleFunc(),
-                ),
-                Text(
-                  '${row.weight} kgs',
-                  style: appUtilities.textStyleFunc(),
-                )
-              ],
-            )
-          ],
-        ));
   }
 }
 
