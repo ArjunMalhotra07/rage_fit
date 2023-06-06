@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../logic/provider/workout_provider.dart';
 import '../../logic/utils/constants.dart';
 import '../../models/work_out.dart';
 
@@ -25,6 +26,7 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
   bool readOnlyVar = true;
   TextEditingController repsC = TextEditingController();
   TextEditingController weightC = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
@@ -56,17 +58,19 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                         child: TextFormField(
                           controller: repsC,
                           readOnly: readOnlyVar,
+                          onSaved: (newValue) {
+                            // final updatedText = '$newValue reps';
+                            // repsC.value = TextEditingValue(
+                            //   text: updatedText,
+                            //   selection: TextSelection.collapsed(
+                            //       offset: updatedText.length),
+                            // );
+                          },
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: '${widget.row.reps} reps',
                               hintStyle: appUtilities.textStyleFunc()),
                           style: appUtilities.textStyleFunc(),
-                          onChanged: (value) {
-                            print(value);
-                          },
-                          onSaved: (newValue) {
-                            print(newValue);
-                          },
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                         )),
@@ -75,18 +79,20 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                         height: 50,
                         child: TextFormField(
                           controller: weightC,
+                          onSaved: (newValue) {
+                            // final updatedText = '$newValue kg';
+                            // weightC.value = TextEditingValue(
+                            //   text: updatedText,
+                            //   selection: TextSelection.collapsed(
+                            //       offset: updatedText.length),
+                            // );
+                          },
                           readOnly: readOnlyVar,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: '${widget.row.weight} kg',
                               hintStyle: appUtilities.textStyleFunc()),
                           style: appUtilities.textStyleFunc(),
-                          onChanged: (value) {
-                            print(value);
-                          },
-                          onSaved: (newValue) {
-                            print(newValue);
-                          },
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                         )),
@@ -94,25 +100,25 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                       onTap: () {
                         setState(() {
                           readOnlyVar = !readOnlyVar;
-                          print(readOnlyVar.toString());
                         });
 
                         if (readOnlyVar == true) {
-                          final int? parsedWeight = int.tryParse(weightC.text);
-                          final int? parsedReps = int.tryParse(repsC.text);
+                          final int parsedWeight =
+                              int.tryParse(weightC.text) ?? widget.row.weight;
+                          final int parsedReps =
+                              int.tryParse(repsC.text) ?? widget.row.reps;
 
-                          if (parsedWeight != null && parsedReps != null) {
-                            _formKey.currentState?.save();
-                            workOutLogProvider.addCount(
-                              widget.workOutName,
-                              Count(weight: parsedWeight, reps: parsedReps),
-                              widget.type,
-                            );
-                          }
+                          _formKey.currentState?.save();
+                          workOutLogProvider.updateWorkOut(
+                            widget.workOutName,
+                            widget.row,
+                            widget.type,
+                            Count(weight: parsedWeight, reps: parsedReps),
+                          );
                         }
                       },
                       child: Icon(
-                        Icons.more_vert,
+                        readOnlyVar ? Icons.edit : Icons.edit_off,
                         color: appColors.lightWhiteColor,
                       ),
                     )
