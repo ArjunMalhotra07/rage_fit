@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
 import 'package:rage_fit/views/templates/workout_tile.dart';
 import '../logic/utils/constants.dart';
+import 'package:rage_fit/logic/provider/workout_provider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});

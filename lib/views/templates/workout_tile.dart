@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rage_fit/logic/provider/workout_provider.dart';
 import '../../logic/utils/constants.dart';
 import '../../models/work_out.dart';
 
