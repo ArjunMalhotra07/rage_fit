@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../logic/utils/constants.dart';
 import '../../models/work_out.dart';
 
@@ -46,11 +48,13 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    //! Index Number
                     Text(
                       "${widget.index + 1}.",
                       style: appUtilities.textStyleFunc(),
                     ),
                     const SizedBox(width: 100),
+                    //! Repititions
                     SizedBox(
                         width: 70,
                         height: 50,
@@ -73,6 +77,7 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                         )),
+                    //! Weight
                     SizedBox(
                         width: 70,
                         height: 50,
@@ -95,6 +100,7 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                         )),
+                    //! Edit Pen
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -113,6 +119,12 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                             widget.row,
                             widget.type,
                             Count(weight: parsedWeight, reps: parsedReps),
+                          );
+                          showTopSnackBar(
+                            Overlay.of(context),
+                            const CustomSnackBar.success(
+                              message: "Workout Updated",
+                            ),
                           );
                         }
                       },

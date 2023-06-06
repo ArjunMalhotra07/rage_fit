@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
 import 'package:rage_fit/views/templates/workout_tile.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../logic/utils/constants.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
 
@@ -59,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                             const SizedBox(height: 20),
+
                             //! Add Icon + Warm-Up
                             GestureDetector(
                               onTap: () {
@@ -67,7 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                     listOfWorkOuts[index],
                                     const Count(reps: 0, weight: 0),
                                     RowType.warmUp);
-                                // print(workOutLogProvider.workouts);
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  const CustomSnackBar.info(
+                                    message:
+                                        "Workout Added, You may edit it now",
+                                  ),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -83,6 +92,34 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //   children: [
+                            //     SizedBox(
+                            //       height: 30,
+                            //       width: 30,
+                            //       child: Image(
+                            //           image: const AssetImage('images/gym.png'),
+                            //           color: appColors.whiteColor),
+                            //     ),
+                            //     const SizedBox(width: 110),
+                            //     SizedBox(
+                            //       width: 60,
+                            //       child: Text(
+                            //         'Reps',
+                            //         style: appUtilities.textStyleFunc(),
+                            //       ),
+                            //     ),
+                            //     const SizedBox(width: 10),
+                            //     SizedBox(
+                            //       width: 70,
+                            //       child: Text(
+                            //         'Kgs',
+                            //         style: appUtilities.textStyleFunc(),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             //! Warm Up List
                             SingleChildScrollView(
                               child: Column(
@@ -119,7 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                     listOfWorkOuts[index],
                                     const Count(reps: 0, weight: 0),
                                     RowType.setRow);
-                                print(workOutLogProvider.workouts);
+                                showTopSnackBar(
+                                  Overlay.of(context),
+                                  const CustomSnackBar.info(
+                                    message:
+                                        "Workout Added, You may edit it now",
+                                  ),
+                                );
                               },
                               child: Row(
                                 children: [
