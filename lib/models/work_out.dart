@@ -6,15 +6,20 @@ enum WorkOutTypes {
   benchPress,
 }
 
-class WorkOut {
-  final int id;
-  final WorkOutTypes workoutName;
+class Count {
   final int weight;
   final int reps;
-  final int warmupRows;
-  final int setRows;
-  WorkOut(this.id, this.workoutName, this.warmupRows, this.setRows, this.weight,
-      this.reps);
+
+  Count(this.weight, this.reps);
+}
+
+class WorkOuts {}
+
+class WorkOut {
+  final WorkOutTypes workoutName;
+  final List<Count> warmupRows;
+  final List<Count> setRows;
+  WorkOut(this.workoutName, this.warmupRows, this.setRows);
 }
 
 class WorkOutLogProvider extends ChangeNotifier {

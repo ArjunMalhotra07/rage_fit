@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:rage_fit/models/work_out.dart';
 import '../logic/utils/constants.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,12 +59,38 @@ class MyHomePage extends StatelessWidget {
                                       color: appColors.redColor, fontSize: 16),
                                 ),
                               ],
-                            )
+                            ),
+                            const SizedBox(height: 10),
+                            // AnimatedList(
+                            //     initialItemCount:
+                            //         workOutLogProviderObj.workouts.length,
+                            //     itemBuilder: (context, int, animation) =>
+                            //         ListItemWidget(
+                            //             workOut: workOutLogProviderObj
+                            //                 .workouts[index],
+                            //             animation: animation,
+                            //             onClicked: () {}))
                           ],
                         ),
                       ),
                     );
                   }),
             )));
+  }
+}
+
+class ListItemWidget extends StatelessWidget {
+  final WorkOut workOut;
+  final Animation<double> animation;
+  final VoidCallback? onClicked;
+  const ListItemWidget(
+      {super.key,
+      required this.workOut,
+      required this.animation,
+      this.onClicked});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
