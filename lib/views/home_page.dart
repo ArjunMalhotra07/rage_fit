@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Container(
             color: Colors.black,
             child: Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
               //! Cards Length
               child: ListView.builder(
                   itemCount: listOfWorkOuts.length,
@@ -94,35 +94,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .map((entry) {
                                               final index = entry.key;
                                               final row = entry.value;
-                                              return Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                    "${index + 1}.",
-                                                    style: appUtilities
-                                                        .textStyleFunc(),
-                                                  ),
-                                                  Text(
-                                                    '${row.reps} reps',
-                                                    style: appUtilities
-                                                        .textStyleFunc(),
-                                                  ),
-                                                  Text(
-                                                    '${row.weight} kgs',
-                                                    style: appUtilities
-                                                        .textStyleFunc(),
-                                                  )
-                                                ],
-                                              );
+                                              return returnWorkOutInfoRow(
+                                                  row, index);
                                             }),
                                           ]),
                                 ],
                               ),
                             ),
 
-                            const Divider(color: Colors.black),
                             const SizedBox(height: 20),
                             //! Add Icon + Set
                             GestureDetector(
@@ -147,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 20),
                             //! Sets List
                             SingleChildScrollView(
                               child: Column(
@@ -161,39 +141,50 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .map((entry) {
                                               final index = entry.key;
                                               final row = entry.value;
-                                              return Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                    "${index + 1}.",
-                                                    style: appUtilities
-                                                        .textStyleFunc(),
-                                                  ),
-                                                  Text(
-                                                    '${row.reps} reps',
-                                                    style: appUtilities
-                                                        .textStyleFunc(),
-                                                  ),
-                                                  Text(
-                                                    '${row.weight} kgs',
-                                                    style: appUtilities
-                                                        .textStyleFunc(),
-                                                  )
-                                                ],
-                                              );
+                                              return returnWorkOutInfoRow(
+                                                  row, index);
                                             }),
                                           ]),
                                 ],
                               ),
                             ),
+
+                            const SizedBox(height: 20),
                           ],
                         ),
                       ),
                     );
                   }),
             )));
+  }
+
+  Widget returnWorkOutInfoRow(Count row, int index) {
+    return SizedBox(
+        height: 60,
+        child: Column(
+          children: [
+            const Divider(color: Colors.black),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "${index + 1}.",
+                  style: appUtilities.textStyleFunc(),
+                ),
+                const SizedBox(width: 100),
+                Text(
+                  '${row.reps} reps',
+                  style: appUtilities.textStyleFunc(),
+                ),
+                Text(
+                  '${row.weight} kgs',
+                  style: appUtilities.textStyleFunc(),
+                )
+              ],
+            )
+          ],
+        ));
   }
 }
 

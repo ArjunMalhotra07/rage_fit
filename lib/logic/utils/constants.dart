@@ -11,6 +11,7 @@ final workOutLogProviderObj = WorkOutLogProvider();
 class AppColors {
   final cardColor = const Color.fromARGB(255, 34, 40, 56);
   final whiteColor = Colors.white;
+  final lightWhiteColor = Colors.white70;
   final iconWhiteColor = Colors.white54;
   final redColor = Colors.red.shade300;
 }

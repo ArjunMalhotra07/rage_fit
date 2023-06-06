@@ -14,8 +14,7 @@ class AppUtilities {
 
   TextStyle textStyleFunc() {
     return TextStyle(
-      color: appColors.whiteColor,
-      fontWeight: FontWeight.bold,
+      color: appColors.lightWhiteColor,
       fontSize: 18,
     );
   }
