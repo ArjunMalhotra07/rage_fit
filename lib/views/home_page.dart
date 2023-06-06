@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
 import 'package:rage_fit/views/templates/workout_tile.dart';
-import '../logic/provider/workout_provider.dart';
 import '../logic/utils/constants.dart';
 
 class MyHomePage extends StatefulWidget {
