@@ -30,26 +30,27 @@ class MyHomePage extends StatelessWidget {
                                 Text(
                                   appUtilities
                                       .formatWorkOutType(listOfWorkOuts[index]),
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                  style: TextStyle(
+                                      color: appColors.whiteColor,
+                                      fontSize: 18),
                                 ),
                                 const Spacer(),
-                                const Icon(Icons.question_mark_sharp,
-                                    color: Colors.white54),
+                                Icon(Icons.question_mark_sharp,
+                                    color: appColors.iconWhiteColor),
                                 const SizedBox(width: 10),
-                                const Icon(Icons.more_vert,
-                                    color: Colors.white54)
+                                Icon(Icons.more_vert,
+                                    color: appColors.iconWhiteColor)
                               ],
                             ),
                             const SizedBox(height: 10),
                             Row(
                               children: [
-                                const Icon(Icons.add),
+                                Icon(Icons.add, color: appColors.redColor),
                                 const SizedBox(width: 10),
                                 Text(
                                   'Warm-Up',
                                   style: TextStyle(
-                                      color: Colors.red.shade300, fontSize: 16),
+                                      color: appColors.redColor, fontSize: 16),
                                 ),
                               ],
                             )
@@ -61,17 +62,3 @@ class MyHomePage extends StatelessWidget {
             )));
   }
 }
-/*ListView.builder(
-          itemCount: listOfWorkOuts.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              leading: Text(
-                appUtilities.formatWorkOutType(listOfWorkOuts[index]),
-                style: const TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              trailing: const Row(children: [
-                Icon(Icons.question_mark_sharp),
-                Icon(Icons.more_vert)
-              ]),
-            );
-          }), */

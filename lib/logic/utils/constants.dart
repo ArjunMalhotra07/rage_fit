@@ -9,4 +9,7 @@ final appColors = AppColors();
 
 class AppColors {
   final cardColor = const Color.fromARGB(255, 34, 40, 56);
+  final whiteColor = Colors.white;
+  final iconWhiteColor = Colors.white54;
+  final redColor = Colors.red.shade300;
 }
