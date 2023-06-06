@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
 import '../logic/utils/constants.dart';
 
@@ -12,6 +13,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final workOutLogProvider = Provider.of<WorkOutLogProvider>(context);
+
+    print(workOutLogProvider.workouts);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appColors.cardColor,
@@ -20,9 +24,11 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.black,
             child: Padding(
               padding: const EdgeInsets.only(top: 20.0),
+              //! Cards Length
               child: ListView.builder(
                   itemCount: listOfWorkOuts.length,
                   itemBuilder: (context, index) {
+                    var name = listOfWorkOuts[index];
                     return Card(
                       color: appColors.cardColor,
                       child: Container(
@@ -35,8 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Row(
                               children: [
                                 Text(
-                                  appUtilities
-                                      .formatWorkOutType(listOfWorkOuts[index]),
+                                  appUtilities.formatWorkOutType(name),
                                   style: TextStyle(
                                       color: appColors.whiteColor,
                                       fontWeight: FontWeight.bold,
@@ -51,40 +56,137 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                             const SizedBox(height: 20),
-                            //! Add + Warm-Up
-                            Row(
-                              children: [
-                                Icon(Icons.add, color: appColors.redColor),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Warm-Up',
-                                  style: TextStyle(
-                                      color: appColors.redColor, fontSize: 16),
-                                ),
-                              ],
+                            //! Add Icon + Warm-Up
+                            GestureDetector(
+                              onTap: () {
+                                print('');
+                                workOutLogProvider.addCount(
+                                    listOfWorkOuts[index],
+                                    const Count(reps: 0, weight: 0),
+                                    RowType.warmUp);
+                                // print(workOutLogProvider.workouts);
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.add, color: appColors.redColor),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    'Warm-Up',
+                                    style: TextStyle(
+                                        color: appColors.redColor,
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 20),
+                            //! Warm Up List
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  ...workOutLogProvider.workouts.workOutsVar
+                                      .where((workout) =>
+                                          workout.workoutName == name)
+                                      .expand((workout) => [
+                                            ...workout.warmupRows
+                                                .asMap()
+                                                .entries
+                                                .map((entry) {
+                                              final index = entry.key;
+                                              final row = entry.value;
+                                              return Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    "${index + 1}.",
+                                                    style: appUtilities
+                                                        .textStyleFunc(),
+                                                  ),
+                                                  Text(
+                                                    '${row.reps} reps',
+                                                    style: appUtilities
+                                                        .textStyleFunc(),
+                                                  ),
+                                                  Text(
+                                                    '${row.weight} kgs',
+                                                    style: appUtilities
+                                                        .textStyleFunc(),
+                                                  )
+                                                ],
+                                              );
+                                            }),
+                                          ]),
+                                ],
+                              ),
+                            ),
+
                             const Divider(color: Colors.black),
                             const SizedBox(height: 20),
-                            // AnimatedList(
-                            //     initialItemCount:
-                            //         workOutLogProviderObj.workouts.length,
-                            //     itemBuilder: (context, int, animation) =>
-                            //         ListItemWidget(
-                            //             workOut: workOutLogProviderObj
-                            //                 .workouts[index],
-                            //             animation: animation,
-                            //             onClicked: () {}))
-                            Row(
-                              children: [
-                                Icon(Icons.add, color: appColors.redColor),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Set',
-                                  style: TextStyle(
-                                      color: appColors.redColor, fontSize: 16),
-                                ),
-                              ],
+                            //! Add Icon + Set
+                            GestureDetector(
+                              onTap: () {
+                                print('');
+                                workOutLogProvider.addCount(
+                                    listOfWorkOuts[index],
+                                    const Count(reps: 0, weight: 0),
+                                    RowType.setRow);
+                                print(workOutLogProvider.workouts);
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.add, color: appColors.redColor),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    'Set',
+                                    style: TextStyle(
+                                        color: appColors.redColor,
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //! Sets List
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  ...workOutLogProvider.workouts.workOutsVar
+                                      .where((workout) =>
+                                          workout.workoutName == name)
+                                      .expand((workout) => [
+                                            ...workout.setRows
+                                                .asMap()
+                                                .entries
+                                                .map((entry) {
+                                              final index = entry.key;
+                                              final row = entry.value;
+                                              return Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Text(
+                                                    "${index + 1}.",
+                                                    style: appUtilities
+                                                        .textStyleFunc(),
+                                                  ),
+                                                  Text(
+                                                    '${row.reps} reps',
+                                                    style: appUtilities
+                                                        .textStyleFunc(),
+                                                  ),
+                                                  Text(
+                                                    '${row.weight} kgs',
+                                                    style: appUtilities
+                                                        .textStyleFunc(),
+                                                  )
+                                                ],
+                                              );
+                                            }),
+                                          ]),
+                                ],
+                              ),
                             ),
                           ],
                         ),

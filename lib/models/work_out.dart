@@ -9,6 +9,11 @@ enum WorkOutTypes {
   benchPress,
 }
 
+enum RowType {
+  warmUp,
+  setRow,
+}
+
 @Freezed()
 class WorkOuts with _$WorkOuts {
   const factory WorkOuts({required List<WorkOut> workOutsVar}) = _WorkOuts;
@@ -33,21 +38,55 @@ class Count with _$Count {
 }
 
 class WorkOutLogProvider extends ChangeNotifier {
-  final WorkOuts _workoutVar = const WorkOuts(workOutsVar: [
+  WorkOuts _workoutVar = const WorkOuts(workOutsVar: [
+    WorkOut(workoutName: WorkOutTypes.benchPress, warmupRows: [], setRows: []),
+    WorkOut(workoutName: WorkOutTypes.latPullDown, warmupRows: [], setRows: []),
     WorkOut(
-        workoutName: WorkOutTypes.benchPress,
-        warmupRows: [Count(weight: 10, reps: 10)],
-        setRows: [Count(weight: 10, reps: 10)])
+        workoutName: WorkOutTypes.overheadPress, warmupRows: [], setRows: [])
   ]);
   WorkOuts get workouts => _workoutVar;
 
-  void addWorkOut(WorkOut workOut) {
-    // _workoutVar.add(workOut);
-    notifyListeners();
+  void addCount(WorkOutTypes exercise, Count count, RowType rowType) {
+    final workoutIndex =
+        _workoutVar.workOutsVar.indexWhere((w) => w.workoutName == exercise);
+    if (workoutIndex != -1) {
+      final workout = _workoutVar.workOutsVar[workoutIndex];
+      final updatedWarmupRows = List<Count>.from(workout.warmupRows);
+      final updatedSetRows = List<Count>.from(workout.setRows);
+
+      if (rowType == RowType.warmUp) {
+        updatedWarmupRows.add(count);
+      } else if (rowType == RowType.setRow) {
+        updatedSetRows.add(count);
+      }
+
+      final updatedWorkout = workout.copyWith(
+          warmupRows: updatedWarmupRows, setRows: updatedSetRows);
+      final updatedWorkouts = WorkOuts(
+        workOutsVar: List<WorkOut>.from(_workoutVar.workOutsVar)
+          ..[workoutIndex] = updatedWorkout,
+      );
+      _workoutVar = updatedWorkouts;
+      notifyListeners();
+    }
   }
 
-  void removeWorkOut(WorkOut workOut) {
-    // _workoutVar.remove(workOut);
-    notifyListeners();
+  void removeCount(WorkOutTypes exercise, Count count) {
+    final workoutIndex =
+        _workoutVar.workOutsVar.indexWhere((w) => w.workoutName == exercise);
+    if (workoutIndex != -1) {
+      final workout = _workoutVar.workOutsVar[workoutIndex];
+      final updatedWarmupRows = List<Count>.from(workout.warmupRows)
+        ..remove(count);
+      final updatedSetRows = List<Count>.from(workout.setRows)..remove(count);
+      final updatedWorkout = workout.copyWith(
+          warmupRows: updatedWarmupRows, setRows: updatedSetRows);
+      final updatedWorkouts = WorkOuts(
+        workOutsVar: List<WorkOut>.from(_workoutVar.workOutsVar)
+          ..[workoutIndex] = updatedWorkout,
+      );
+      _workoutVar = updatedWorkouts;
+      notifyListeners();
+    }
   }
 }
