@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'work_out.freezed.dart';
+part 'work_out.g.dart';
 
 enum WorkOutTypes {
   overheadPress,
@@ -6,33 +9,45 @@ enum WorkOutTypes {
   benchPress,
 }
 
-class Count {
-  final int weight;
-  final int reps;
-
-  Count(this.weight, this.reps);
+@Freezed()
+class WorkOuts with _$WorkOuts {
+  const factory WorkOuts({required List<WorkOut> workOutsVar}) = _WorkOuts;
+  factory WorkOuts.fromJson(Map<String, dynamic> json) =>
+      _$WorkOutsFromJson(json);
 }
 
-class WorkOuts {}
+@Freezed()
+class WorkOut with _$WorkOut {
+  const factory WorkOut(
+      {required WorkOutTypes workoutName,
+      required List<Count> warmupRows,
+      required List<Count> setRows}) = _WorkOut;
+  factory WorkOut.fromJson(Map<String, dynamic> json) =>
+      _$WorkOutFromJson(json);
+}
 
-class WorkOut {
-  final WorkOutTypes workoutName;
-  final List<Count> warmupRows;
-  final List<Count> setRows;
-  WorkOut(this.workoutName, this.warmupRows, this.setRows);
+@Freezed()
+class Count with _$Count {
+  const factory Count({required int weight, required int reps}) = _Count;
+  factory Count.fromJson(Map<String, dynamic> json) => _$CountFromJson(json);
 }
 
 class WorkOutLogProvider extends ChangeNotifier {
-  final List<WorkOut> _workouts = [];
-  List<WorkOut> get workouts => _workouts;
+  final WorkOuts _workoutVar = const WorkOuts(workOutsVar: [
+    WorkOut(
+        workoutName: WorkOutTypes.benchPress,
+        warmupRows: [Count(weight: 10, reps: 10)],
+        setRows: [Count(weight: 10, reps: 10)])
+  ]);
+  WorkOuts get workouts => _workoutVar;
 
   void addWorkOut(WorkOut workOut) {
-    _workouts.add(workOut);
+    // _workoutVar.add(workOut);
     notifyListeners();
   }
 
   void removeWorkOut(WorkOut workOut) {
-    _workouts.remove(workOut);
+    // _workoutVar.remove(workOut);
     notifyListeners();
   }
 }

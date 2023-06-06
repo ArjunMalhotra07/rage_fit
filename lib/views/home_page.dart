@@ -31,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            //! Name + Question Mark + More Info
                             Row(
                               children: [
                                 Text(
@@ -38,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       .formatWorkOutType(listOfWorkOuts[index]),
                                   style: TextStyle(
                                       color: appColors.whiteColor,
+                                      fontWeight: FontWeight.bold,
                                       fontSize: 18),
                                 ),
                                 const Spacer(),
@@ -48,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     color: appColors.iconWhiteColor)
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 20),
+                            //! Add + Warm-Up
                             Row(
                               children: [
                                 Icon(Icons.add, color: appColors.redColor),
@@ -60,7 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 20),
+                            const Divider(color: Colors.black),
+                            const SizedBox(height: 20),
                             // AnimatedList(
                             //     initialItemCount:
                             //         workOutLogProviderObj.workouts.length,
@@ -70,6 +75,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             //                 .workouts[index],
                             //             animation: animation,
                             //             onClicked: () {}))
+                            Row(
+                              children: [
+                                Icon(Icons.add, color: appColors.redColor),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Set',
+                                  style: TextStyle(
+                                      color: appColors.redColor, fontSize: 16),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
