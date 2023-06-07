@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:rage_fit/models/enum.dart';
 import 'package:rage_fit/models/work_out.dart';
-import '../../views/templates/constants.dart';
+import '../views/templates/constants.dart';
 
 class WorkOutLogProvider extends ChangeNotifier {
   var logger = Logger();

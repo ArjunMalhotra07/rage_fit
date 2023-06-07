@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
 import 'package:rage_fit/views/templates/dismissible_widget.dart';
 import 'package:rage_fit/views/templates/workout_tile.dart';
+import '../../models/enum.dart';
 import '../templates/constants.dart';
-import 'package:rage_fit/logic/provider/workout_provider.dart';
+import 'package:rage_fit/logic/workout_provider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -62,7 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                             const SizedBox(height: 20),
-
                             //! Add Icon + Warm-Up
                             GestureDetector(
                               onTap: () {
@@ -175,21 +175,5 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   }),
             )));
-  }
-}
-
-class ListItemWidget extends StatelessWidget {
-  final WorkOut workOut;
-  final Animation<double> animation;
-  final VoidCallback? onClicked;
-  const ListItemWidget(
-      {super.key,
-      required this.workOut,
-      required this.animation,
-      this.onClicked});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
-import '../../models/work_out.dart';
+import '../../models/enum.dart';
 import 'constants.dart';
 
 class AppUtilities {

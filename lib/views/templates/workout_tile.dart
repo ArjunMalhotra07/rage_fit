@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rage_fit/logic/provider/workout_provider.dart';
+import 'package:rage_fit/logic/workout_provider.dart';
 import 'package:rage_fit/views/templates/workout_header_tile.dart';
+import '../../models/enum.dart';
 import 'constants.dart';
 import '../../models/work_out.dart';
 
