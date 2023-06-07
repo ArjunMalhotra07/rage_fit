@@ -96,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     final index1 = entry.key;
                                     final row = entry.value;
                                     return WorkoutRowTile(
+                                      key: UniqueKey(),
                                       workOutName: listOfWorkOuts[index],
                                       index: index1,
                                       row: row,

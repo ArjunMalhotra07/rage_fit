@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
 import 'package:rage_fit/views/templates/workout_header_tile.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'constants.dart';
 import '../../models/work_out.dart';
 
@@ -112,23 +110,14 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                             }
                           },
                           child: Icon(
-                            readOnlyVar ? Icons.edit : Icons.edit_off,
+                            readOnlyVar ? Icons.edit : Icons.check,
                             color: appColors.lightWhiteColor,
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            workOutLogProvider.removeWorkOut(
-                              widget.workOutName,
-                              widget.row,
-                              widget.type,
-                            );
-                            showTopSnackBar(
-                              Overlay.of(context),
-                              const CustomSnackBar.error(
-                                message: "Deleted Workout",
-                              ),
-                            );
+                            workOutLogProvider.removeWorkOut(widget.workOutName,
+                                widget.row, widget.type, context, widget.index);
                           },
                           child: Icon(
                             Icons.delete,

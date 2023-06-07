@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:rage_fit/models/work_out.dart';
 import '../../views/templates/constants.dart';
 
 class WorkOutLogProvider extends ChangeNotifier {
+  var logger = Logger();
   WorkOuts _workoutVar = WorkOuts(workOutsVar: _initializeWorkouts());
   static List<WorkOut> _initializeWorkouts() {
     List<WorkOut> workouts = [];
@@ -110,33 +112,31 @@ class WorkOutLogProvider extends ChangeNotifier {
     }
   }
 
-  void removeWorkOut(WorkOutTypes exercise, Count count, RowType rowType) {
-    final workout =
-        _workoutVar.workOutsVar.firstWhere((w) => w.workoutName == exercise);
-
+  void removeWorkOut(WorkOutTypes exercise, Count count, RowType rowType,
+      BuildContext context, int index) {
+    final int workoutIndex =
+        _workoutVar.workOutsVar.indexWhere((w) => w.workoutName == exercise);
+    final WorkOut workout = _workoutVar.workOutsVar[workoutIndex];
     final updatedWarmupRows = List<Count>.from(workout.warmupRows);
     final updatedSetRows = List<Count>.from(workout.setRows);
 
     if (rowType == RowType.warmUp) {
-      updatedWarmupRows.remove(count);
+      updatedWarmupRows.removeAt(index);
     } else if (rowType == RowType.setRow) {
-      updatedSetRows.remove(count);
+      updatedSetRows.removeAt(index);
     }
 
-    final updatedWorkout = workout.copyWith(
+    WorkOut updatedWorkout = workout.copyWith(
       warmupRows: updatedWarmupRows,
       setRows: updatedSetRows,
     );
-
-    final workoutIndex =
-        _workoutVar.workOutsVar.indexWhere((w) => w == workout);
-
     final updatedWorkouts = WorkOuts(
       workOutsVar: List<WorkOut>.from(_workoutVar.workOutsVar)
         ..[workoutIndex] = updatedWorkout,
     );
 
     _workoutVar = updatedWorkouts;
+    appUtilities.showSnackBar('Workout Deleted', SnackBarType.error, context);
     notifyListeners();
   }
 }
