@@ -66,14 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 workOutLogProvider.addCount(
                                     listOfWorkOuts[index],
                                     const Count(reps: 0, weight: 0),
-                                    RowType.warmUp);
-                                showTopSnackBar(
-                                  Overlay.of(context),
-                                  const CustomSnackBar.info(
-                                    message:
-                                        "Workout Added, You may edit it now",
-                                  ),
-                                );
+                                    RowType.warmUp,
+                                    context);
                               },
                               child: Row(
                                 children: [
@@ -121,14 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 workOutLogProvider.addCount(
                                     listOfWorkOuts[index],
                                     const Count(reps: 0, weight: 0),
-                                    RowType.setRow);
-                                showTopSnackBar(
-                                  Overlay.of(context),
-                                  const CustomSnackBar.info(
-                                    message:
-                                        "Workout Added, You may edit it now",
-                                  ),
-                                );
+                                    RowType.setRow,
+                                    context);
                               },
                               child: Row(
                                 children: [

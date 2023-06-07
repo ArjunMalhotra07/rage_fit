@@ -121,6 +121,25 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                             readOnlyVar ? Icons.edit : Icons.edit_off,
                             color: appColors.lightWhiteColor,
                           ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            workOutLogProvider.removeWorkOut(
+                              widget.workOutName,
+                              widget.row,
+                              widget.type,
+                            );
+                            showTopSnackBar(
+                              Overlay.of(context),
+                              const CustomSnackBar.error(
+                                message: "Deleted Workout",
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.delete,
+                            color: appColors.redColor,
+                          ),
                         )
                       ],
                     ))
