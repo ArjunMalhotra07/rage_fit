@@ -29,6 +29,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemCount: listOfWorkOuts.length,
                   itemBuilder: (context, index) {
                     var name = listOfWorkOuts[index];
+                    WorkOut workout =
+                        workOutLogProvider.workouts.workOutsVar[index];
+                    List<Count> warmUpRowsVar = workout.warmupRows;
+                    List<Count> setRowsVar = workout.setRows;
                     return Card(
                       color: appColors.cardColor,
                       child: Container(
@@ -81,32 +85,21 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            // const WorkoutHeaderTile(),
-
                             //! Warm Up List
                             SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  ...workOutLogProvider.workouts.workOutsVar
-                                      .where((workout) =>
-                                          workout.workoutName == name)
-                                      .expand((workout) =>
-                                          workout.warmupRows.asMap().entries)
-                                      .map((entry) {
-                                    final index1 = entry.key;
-                                    final row = entry.value;
-                                    return WorkoutRowTile(
-                                      key: UniqueKey(),
-                                      workOutName: listOfWorkOuts[index],
-                                      index: index1,
-                                      row: row,
-                                      type: RowType.warmUp,
-                                    );
-                                  }),
-                                ],
-                              ),
-                            ),
-
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: warmUpRowsVar.length,
+                                    itemBuilder: ((context, index1) {
+                                      Count row = warmUpRowsVar[index1];
+                                      return WorkoutRowTile(
+                                        key: UniqueKey(),
+                                        workOutName: listOfWorkOuts[index],
+                                        index: index1,
+                                        row: row,
+                                        type: RowType.warmUp,
+                                      );
+                                    }))),
                             const SizedBox(height: 20),
                             //! Add Icon + Set
                             GestureDetector(
@@ -131,34 +124,23 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
-
                             //! Sets List
                             SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  ...workOutLogProvider.workouts.workOutsVar
-                                      .where((workout) =>
-                                          workout.workoutName == name)
-                                      .expand((workout) => [
-                                            ...workout.setRows
-                                                .asMap()
-                                                .entries
-                                                .map((entry) {
-                                              final index1 = entry.key;
-                                              final row = entry.value;
-                                              return WorkoutRowTile(
-                                                workOutName:
-                                                    listOfWorkOuts[index],
-                                                index: index1,
-                                                row: row,
-                                                type: RowType.setRow,
-                                              );
-                                            }),
-                                          ]),
-                                ],
-                              ),
+                              child: SingleChildScrollView(
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: setRowsVar.length,
+                                      itemBuilder: ((context, index1) {
+                                        Count row = setRowsVar[index1];
+                                        return WorkoutRowTile(
+                                          key: UniqueKey(),
+                                          workOutName: listOfWorkOuts[index],
+                                          index: index1,
+                                          row: row,
+                                          type: RowType.setRow,
+                                        );
+                                      }))),
                             ),
-
                             const SizedBox(height: 20),
                           ],
                         ),
