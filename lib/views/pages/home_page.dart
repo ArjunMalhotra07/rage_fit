@@ -88,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             //! Warm Up List
                             SingleChildScrollView(
                                 child: ListView.builder(
+                                    physics: const ClampingScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: warmUpRowsVar.length,
                                     itemBuilder: ((context, index1) {
@@ -128,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             SingleChildScrollView(
                               child: SingleChildScrollView(
                                   child: ListView.builder(
+                                      physics: const ClampingScrollPhysics(),
                                       shrinkWrap: true,
                                       itemCount: setRowsVar.length,
                                       itemBuilder: ((context, index1) {
