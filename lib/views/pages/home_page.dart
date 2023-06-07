@@ -7,8 +7,6 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../logic/utils/constants.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
 
-import '../templates/workout_header_tile.dart';
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -20,7 +18,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final workOutLogProvider = Provider.of<WorkOutLogProvider>(context);
-    final ValueNotifier<bool> isListEmpty = ValueNotifier<bool>(false);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appColors.cardColor,
@@ -66,7 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             //! Add Icon + Warm-Up
                             GestureDetector(
                               onTap: () {
-                                print('');
                                 workOutLogProvider.addCount(
                                     listOfWorkOuts[index],
                                     const Count(reps: 0, weight: 0),
@@ -122,7 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             //! Add Icon + Set
                             GestureDetector(
                               onTap: () {
-                                print('');
                                 workOutLogProvider.addCount(
                                     listOfWorkOuts[index],
                                     const Count(reps: 0, weight: 0),

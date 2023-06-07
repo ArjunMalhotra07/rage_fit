@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rage_fit/models/work_out.dart';
-import 'package:provider/provider.dart';
 
 class WorkOutLogProvider extends ChangeNotifier {
   WorkOuts _workoutVar = const WorkOuts(workOutsVar: [
