@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
+import 'package:rage_fit/views/templates/dismissible_widget.dart';
 import 'package:rage_fit/views/templates/workout_tile.dart';
 import '../templates/constants.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
@@ -93,28 +94,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                     itemCount: warmUpRowsVar.length,
                                     itemBuilder: ((context, index1) {
                                       Count row = warmUpRowsVar[index1];
-                                      return Dismissible(
-                                        key: Key(row.toString()),
-                                        onDismissed: (direction) {
-                                          workOutLogProvider.removeWorkOut(
-                                              workout.workoutName,
-                                              warmUpRowsVar[index1],
-                                              RowType.warmUp,
-                                              context,
-                                              index1);
-                                        },
-                                        background: Container(
-                                          color: Colors.red,
-                                          child: const Icon(Icons.delete),
-                                        ),
-                                        child: WorkoutRowTile(
-                                          key: UniqueKey(),
-                                          workOutName: listOfWorkOuts[index],
-                                          index: index1,
-                                          row: row,
-                                          type: RowType.warmUp,
-                                        ),
-                                      );
+                                      return DismissibleWidget(
+                                          key: ObjectKey(row),
+                                          performThisAction: () {
+                                            workOutLogProvider.removeWorkOut(
+                                                workout.workoutName,
+                                                warmUpRowsVar[index1],
+                                                RowType.warmUp,
+                                                context,
+                                                index1);
+                                          },
+                                          incomingWidget: WorkoutRowTile(
+                                            key: UniqueKey(),
+                                            workOutName: listOfWorkOuts[index],
+                                            index: index1,
+                                            row: row,
+                                            type: RowType.warmUp,
+                                          ),
+                                          row: row.toString());
                                     }))),
                             const SizedBox(height: 20),
                             //! Add Icon + Set
@@ -149,28 +146,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                       itemCount: setRowsVar.length,
                                       itemBuilder: ((context, index1) {
                                         Count row = setRowsVar[index1];
-                                        return Dismissible(
-                                          key: Key(row.toString()),
-                                          onDismissed: (direction) {
-                                            workOutLogProvider.removeWorkOut(
-                                                workout.workoutName,
-                                                setRowsVar[index1],
-                                                RowType.setRow,
-                                                context,
-                                                index1);
-                                          },
-                                          background: Container(
-                                            color: Colors.red,
-                                            child: const Icon(Icons.delete),
-                                          ),
-                                          child: WorkoutRowTile(
-                                            key: UniqueKey(),
-                                            workOutName: listOfWorkOuts[index],
-                                            index: index1,
-                                            row: row,
-                                            type: RowType.setRow,
-                                          ),
-                                        );
+
+                                        return DismissibleWidget(
+                                            key: ObjectKey(row),
+                                            performThisAction: () {
+                                              workOutLogProvider.removeWorkOut(
+                                                  workout.workoutName,
+                                                  setRowsVar[index1],
+                                                  RowType.setRow,
+                                                  context,
+                                                  index1);
+                                            },
+                                            incomingWidget: WorkoutRowTile(
+                                              key: UniqueKey(),
+                                              workOutName:
+                                                  listOfWorkOuts[index],
+                                              index: index1,
+                                              row: row,
+                                              type: RowType.warmUp,
+                                            ),
+                                            row: row.toString());
                                       }))),
                             ),
                             const SizedBox(height: 20),

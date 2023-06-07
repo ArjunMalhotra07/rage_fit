@@ -29,10 +29,11 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
 
   @override
   void dispose() {
+    repsC.dispose();
+    weightC.dispose();
     super.dispose();
   }
 
-  void saveState() {}
   @override
   Widget build(BuildContext context) {
     final workOutLogProvider = Provider.of<WorkOutLogProvider>(context);
