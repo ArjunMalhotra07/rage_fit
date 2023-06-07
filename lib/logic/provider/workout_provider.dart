@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rage_fit/models/work_out.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import '../../views/templates/constants.dart';
 
 class WorkOutLogProvider extends ChangeNotifier {
   WorkOuts _workoutVar = WorkOuts(workOutsVar: _initializeWorkouts());
@@ -31,58 +30,36 @@ class WorkOutLogProvider extends ChangeNotifier {
           if (!(updatedWarmupRows[updatedWarmupRows.length - 1].reps == 0 &&
               updatedWarmupRows[updatedWarmupRows.length - 1].weight == 0)) {
             updatedWarmupRows.add(count);
-            showTopSnackBar(
-              Overlay.of(context),
-              const CustomSnackBar.info(
-                message: "Workout Added, You may edit it now",
-              ),
-            );
+            appUtilities.showSnackBar('Workout Added, You may edit it now',
+                SnackBarType.info, context);
           } else {
-            showTopSnackBar(
-              Overlay.of(context),
-              const CustomSnackBar.error(
-                message:
-                    "Please edit the last workout before adding newer ones",
-              ),
-            );
+            appUtilities.showSnackBar(
+                'Please edit the last workout before adding newer ones',
+                SnackBarType.error,
+                context);
           }
         } else {
           updatedWarmupRows.add(count);
-          showTopSnackBar(
-            Overlay.of(context),
-            const CustomSnackBar.info(
-              message: "Workout Added, You may edit it now",
-            ),
-          );
+          appUtilities.showSnackBar(
+              'Workout Added, You may edit it now', SnackBarType.info, context);
         }
       } else if (rowType == RowType.setRow) {
         if (updatedSetRows.isNotEmpty) {
           if (!(updatedSetRows[updatedSetRows.length - 1].reps == 0 &&
               updatedSetRows[updatedSetRows.length - 1].weight == 0)) {
             updatedSetRows.add(count);
-            showTopSnackBar(
-              Overlay.of(context),
-              const CustomSnackBar.info(
-                message: "Workout Added, You may edit it now",
-              ),
-            );
+            appUtilities.showSnackBar('Workout Added, You may edit it now',
+                SnackBarType.info, context);
           } else {
-            showTopSnackBar(
-              Overlay.of(context),
-              const CustomSnackBar.error(
-                message:
-                    "Please edit the last workout before adding newer ones",
-              ),
-            );
+            appUtilities.showSnackBar(
+                'Please edit the last workout before adding newer ones',
+                SnackBarType.error,
+                context);
           }
         } else {
           updatedSetRows.add(count);
-          showTopSnackBar(
-            Overlay.of(context),
-            const CustomSnackBar.info(
-              message: "Workout Added, You may edit it now",
-            ),
-          );
+          appUtilities.showSnackBar(
+              'Workout Added, You may edit it now', SnackBarType.info, context);
         }
       }
 
@@ -98,7 +75,7 @@ class WorkOutLogProvider extends ChangeNotifier {
   }
 
   void updateWorkOut(WorkOutTypes exercise, Count oldWorkOut, RowType rowType,
-      Count updatedWorkOut) {
+      Count updatedWorkOut, BuildContext context) {
     final int workoutIndex =
         _workoutVar.workOutsVar.indexWhere((w) => w.workoutName == exercise);
     if (workoutIndex != -1) {
@@ -126,6 +103,9 @@ class WorkOutLogProvider extends ChangeNotifier {
           ..[workoutIndex] = updatedWorkout,
       );
       _workoutVar = updatedWorkouts;
+      appUtilities.showSnackBar(
+          'Workout Updated', SnackBarType.success, context);
+
       notifyListeners();
     }
   }

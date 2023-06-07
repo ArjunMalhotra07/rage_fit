@@ -4,7 +4,7 @@ import 'package:rage_fit/logic/provider/workout_provider.dart';
 import 'package:rage_fit/views/templates/workout_header_tile.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import '../../logic/utils/constants.dart';
+import 'constants.dart';
 import '../../models/work_out.dart';
 
 class WorkoutRowTile extends StatefulWidget {
@@ -104,17 +104,11 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
 
                               _formKey.currentState?.save();
                               workOutLogProvider.updateWorkOut(
-                                widget.workOutName,
-                                widget.row,
-                                widget.type,
-                                Count(weight: parsedWeight, reps: parsedReps),
-                              );
-                              showTopSnackBar(
-                                Overlay.of(context),
-                                const CustomSnackBar.success(
-                                  message: "Workout Updated",
-                                ),
-                              );
+                                  widget.workOutName,
+                                  widget.row,
+                                  widget.type,
+                                  Count(weight: parsedWeight, reps: parsedReps),
+                                  context);
                             }
                           },
                           child: Icon(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
-import 'package:rage_fit/logic/utils/utilities.dart';
+import 'package:rage_fit/views/templates/utilities.dart';
 
 import '../../models/work_out.dart';
 

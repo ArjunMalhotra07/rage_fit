@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../logic/utils/constants.dart';
+import 'constants.dart';
 
 class WorkoutHeaderTile extends StatelessWidget {
   const WorkoutHeaderTile({super.key});

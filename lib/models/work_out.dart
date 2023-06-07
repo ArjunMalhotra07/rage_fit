@@ -2,6 +2,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'work_out.freezed.dart';
 part 'work_out.g.dart';
 
+enum SnackBarType {
+  error,
+  success,
+  info,
+}
+
 enum WorkOutTypes { overheadPress, latPullDown, benchPress, lateralRaises }
 
 enum RowType {

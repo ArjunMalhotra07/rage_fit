@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rage_fit/models/work_out.dart';
 import 'package:rage_fit/views/templates/workout_tile.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import '../../logic/utils/constants.dart';
+import '../templates/constants.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
 
 class MyHomePage extends StatefulWidget {
