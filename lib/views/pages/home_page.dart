@@ -57,11 +57,27 @@ class _MyHomePageState extends State<MyHomePage> {
                                       fontSize: 18),
                                 ),
                                 const Spacer(),
-                                Icon(Icons.question_mark_sharp,
-                                    color: appColors.iconWhiteColor),
+                                GestureDetector(
+                                  onTap: () {
+                                    appUtilities.showSnackBar(
+                                        'Add workouts by clicking \non the add button below',
+                                        SnackBarType.success,
+                                        context);
+                                  },
+                                  child: Icon(Icons.question_mark_sharp,
+                                      color: appColors.iconWhiteColor),
+                                ),
                                 const SizedBox(width: 10),
-                                Icon(Icons.more_vert,
-                                    color: appColors.iconWhiteColor)
+                                GestureDetector(
+                                  onTap: () {
+                                    appUtilities.showSnackBar(
+                                        'Swipe the workouts to delete. \nClick edit to modify.',
+                                        SnackBarType.info,
+                                        context);
+                                  },
+                                  child: Icon(Icons.more_vert,
+                                      color: appColors.iconWhiteColor),
+                                )
                               ],
                             ),
                             const SizedBox(height: 20),
@@ -196,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   listOfWorkOuts[index],
                                               index: index1,
                                               row: row,
-                                              type: RowType.warmUp,
+                                              type: RowType.setRow,
                                             ),
                                             row: row.toString());
                                       }))),
