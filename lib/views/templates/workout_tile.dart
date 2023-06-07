@@ -38,7 +38,9 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
     final workOutLogProvider = Provider.of<WorkOutLogProvider>(context);
     return Column(
       children: [
-        widget.index == 0 ? const WorkoutHeaderTile() : Container(),
+        widget.index == 0 && widget.type == RowType.warmUp
+            ? const WorkoutHeaderTile()
+            : Container(),
         SizedBox(
             height: 80,
             child: Column(
@@ -117,16 +119,6 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                             color: appColors.lightWhiteColor,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            workOutLogProvider.removeWorkOut(widget.workOutName,
-                                widget.row, widget.type, context, widget.index);
-                          },
-                          child: Icon(
-                            Icons.delete,
-                            color: appColors.redColor,
-                          ),
-                        )
                       ],
                     ))
               ],
