@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:rage_fit/models/work_out.dart';
 
 class WorkOutLogProvider extends ChangeNotifier {
-  WorkOuts _workoutVar = const WorkOuts(workOutsVar: [
-    WorkOut(workoutName: WorkOutTypes.benchPress, warmupRows: [], setRows: []),
-    WorkOut(workoutName: WorkOutTypes.latPullDown, warmupRows: [], setRows: []),
-    WorkOut(
-        workoutName: WorkOutTypes.overheadPress, warmupRows: [], setRows: [])
-  ]);
+  WorkOuts _workoutVar = WorkOuts(workOutsVar: _initializeWorkouts());
+  static List<WorkOut> _initializeWorkouts() {
+    List<WorkOut> workouts = [];
+    for (var workoutType in WorkOutTypes.values) {
+      workouts.add(
+        WorkOut(workoutName: workoutType, warmupRows: [], setRows: []),
+      );
+    }
+    return workouts;
+  }
+
   WorkOuts get workouts => _workoutVar;
 
   void addCount(WorkOutTypes exercise, Count count, RowType rowType) {

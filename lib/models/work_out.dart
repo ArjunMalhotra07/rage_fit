@@ -2,11 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'work_out.freezed.dart';
 part 'work_out.g.dart';
 
-enum WorkOutTypes {
-  overheadPress,
-  latPullDown,
-  benchPress,
-}
+enum WorkOutTypes { overheadPress, latPullDown, benchPress, lateralRaises }
 
 enum RowType {
   warmUp,
