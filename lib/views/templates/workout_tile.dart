@@ -61,6 +61,7 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                             width: 70,
                             height: 50,
                             child: TextFormField(
+                              autofocus: true,
                               controller: repsC,
                               readOnly: readOnlyVar,
                               decoration: InputDecoration(
@@ -69,6 +70,7 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                                   hintStyle: appUtilities.textStyleFunc()),
                               style: appUtilities.textStyleFunc(),
                               textAlign: TextAlign.center,
+                              textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.number,
                             )),
                         //! Weight
@@ -78,6 +80,7 @@ class _WorkoutRowTileState extends State<WorkoutRowTile> {
                             child: TextFormField(
                               controller: weightC,
                               readOnly: readOnlyVar,
+                              textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: '${widget.row.weight}',
