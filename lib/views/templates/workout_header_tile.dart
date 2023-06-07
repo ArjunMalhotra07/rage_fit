@@ -29,7 +29,7 @@ class WorkoutHeaderTile extends StatelessWidget {
               style: appUtilities.textStyleFunc(),
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 20),
           SizedBox(
             width: 70,
             height: 50,

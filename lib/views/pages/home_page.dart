@@ -99,29 +99,21 @@ class _MyHomePageState extends State<MyHomePage> {
                             SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  if (workOutLogProvider.workouts.workOutsVar
+                                  ...workOutLogProvider.workouts.workOutsVar
                                       .where((workout) =>
                                           workout.workoutName == name)
-                                      .expand((workout) => workout.warmupRows)
-                                      .isEmpty)
-                                    //  isListEmpty.value = true;
-                                    Container()
-                                  else
-                                    ...workOutLogProvider.workouts.workOutsVar
-                                        .where((workout) =>
-                                            workout.workoutName == name)
-                                        .expand((workout) =>
-                                            workout.warmupRows.asMap().entries)
-                                        .map((entry) {
-                                      final index1 = entry.key;
-                                      final row = entry.value;
-                                      return WorkoutRowTile(
-                                        workOutName: listOfWorkOuts[index],
-                                        index: index1,
-                                        row: row,
-                                        type: RowType.warmUp,
-                                      );
-                                    }),
+                                      .expand((workout) =>
+                                          workout.warmupRows.asMap().entries)
+                                      .map((entry) {
+                                    final index1 = entry.key;
+                                    final row = entry.value;
+                                    return WorkoutRowTile(
+                                      workOutName: listOfWorkOuts[index],
+                                      index: index1,
+                                      row: row,
+                                      type: RowType.warmUp,
+                                    );
+                                  }),
                                 ],
                               ),
                             ),
@@ -157,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            const WorkoutHeaderTile(),
+
                             //! Sets List
                             SingleChildScrollView(
                               child: Column(
