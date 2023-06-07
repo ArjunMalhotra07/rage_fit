@@ -4,8 +4,10 @@ import 'package:rage_fit/models/work_out.dart';
 import 'package:rage_fit/views/templates/workout_tile.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import '../logic/utils/constants.dart';
+import '../../logic/utils/constants.dart';
 import 'package:rage_fit/logic/provider/workout_provider.dart';
+
+import '../templates/workout_header_tile.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -18,8 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final workOutLogProvider = Provider.of<WorkOutLogProvider>(context);
-
-    print(workOutLogProvider.workouts);
+    final ValueNotifier<bool> isListEmpty = ValueNotifier<bool>(false);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appColors.cardColor,
@@ -92,57 +93,35 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            //   children: [
-                            //     SizedBox(
-                            //       height: 30,
-                            //       width: 30,
-                            //       child: Image(
-                            //           image: const AssetImage('images/gym.png'),
-                            //           color: appColors.whiteColor),
-                            //     ),
-                            //     const SizedBox(width: 110),
-                            //     SizedBox(
-                            //       width: 60,
-                            //       child: Text(
-                            //         'Reps',
-                            //         style: appUtilities.textStyleFunc(),
-                            //       ),
-                            //     ),
-                            //     const SizedBox(width: 10),
-                            //     SizedBox(
-                            //       width: 70,
-                            //       child: Text(
-                            //         'Kgs',
-                            //         style: appUtilities.textStyleFunc(),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
+                            // const WorkoutHeaderTile(),
+
                             //! Warm Up List
                             SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  ...workOutLogProvider.workouts.workOutsVar
+                                  if (workOutLogProvider.workouts.workOutsVar
                                       .where((workout) =>
                                           workout.workoutName == name)
-                                      .expand((workout) => [
-                                            ...workout.warmupRows
-                                                .asMap()
-                                                .entries
-                                                .map((entry) {
-                                              final index1 = entry.key;
-                                              final row = entry.value;
-                                              return WorkoutRowTile(
-                                                workOutName:
-                                                    listOfWorkOuts[index],
-                                                index: index1,
-                                                row: row,
-                                                type: RowType.warmUp,
-                                              );
-                                            }),
-                                          ]),
+                                      .expand((workout) => workout.warmupRows)
+                                      .isEmpty)
+                                    //  isListEmpty.value = true;
+                                    Container()
+                                  else
+                                    ...workOutLogProvider.workouts.workOutsVar
+                                        .where((workout) =>
+                                            workout.workoutName == name)
+                                        .expand((workout) =>
+                                            workout.warmupRows.asMap().entries)
+                                        .map((entry) {
+                                      final index1 = entry.key;
+                                      final row = entry.value;
+                                      return WorkoutRowTile(
+                                        workOutName: listOfWorkOuts[index],
+                                        index: index1,
+                                        row: row,
+                                        type: RowType.warmUp,
+                                      );
+                                    }),
                                 ],
                               ),
                             ),
@@ -178,6 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
+                            const WorkoutHeaderTile(),
                             //! Sets List
                             SingleChildScrollView(
                               child: Column(
