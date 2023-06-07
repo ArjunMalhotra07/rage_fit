@@ -7,6 +7,8 @@ import '../../models/enum.dart';
 import '../templates/constants.dart';
 import 'package:rage_fit/logic/workout_provider.dart';
 
+import '../templates/workout_header_tile.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -94,24 +96,56 @@ class _MyHomePageState extends State<MyHomePage> {
                                     itemCount: warmUpRowsVar.length,
                                     itemBuilder: ((context, index1) {
                                       Count row = warmUpRowsVar[index1];
-                                      return DismissibleWidget(
-                                          key: ObjectKey(row),
-                                          performThisAction: () {
-                                            workOutLogProvider.removeWorkOut(
-                                                workout.workoutName,
-                                                warmUpRowsVar[index1],
-                                                RowType.warmUp,
-                                                context,
-                                                index1);
-                                          },
-                                          incomingWidget: WorkoutRowTile(
-                                            key: UniqueKey(),
-                                            workOutName: listOfWorkOuts[index],
-                                            index: index1,
-                                            row: row,
-                                            type: RowType.warmUp,
-                                          ),
-                                          row: row.toString());
+                                      return warmUpRowsVar.isNotEmpty &&
+                                              index1 == 0
+                                          ? Column(
+                                              children: [
+                                                const WorkoutHeaderTile(),
+                                                DismissibleWidget(
+                                                    key: ObjectKey(row),
+                                                    performThisAction: () {
+                                                      workOutLogProvider
+                                                          .removeWorkOut(
+                                                              workout
+                                                                  .workoutName,
+                                                              warmUpRowsVar[
+                                                                  index1],
+                                                              RowType.warmUp,
+                                                              context,
+                                                              index1);
+                                                    },
+                                                    incomingWidget:
+                                                        WorkoutRowTile(
+                                                      key: UniqueKey(),
+                                                      workOutName:
+                                                          listOfWorkOuts[index],
+                                                      index: index1,
+                                                      row: row,
+                                                      type: RowType.warmUp,
+                                                    ),
+                                                    row: row.toString()),
+                                              ],
+                                            )
+                                          : DismissibleWidget(
+                                              key: ObjectKey(row),
+                                              performThisAction: () {
+                                                workOutLogProvider
+                                                    .removeWorkOut(
+                                                        workout.workoutName,
+                                                        warmUpRowsVar[index1],
+                                                        RowType.warmUp,
+                                                        context,
+                                                        index1);
+                                              },
+                                              incomingWidget: WorkoutRowTile(
+                                                key: UniqueKey(),
+                                                workOutName:
+                                                    listOfWorkOuts[index],
+                                                index: index1,
+                                                row: row,
+                                                type: RowType.warmUp,
+                                              ),
+                                              row: row.toString());
                                     }))),
                             const SizedBox(height: 20),
                             //! Add Icon + Set
@@ -146,7 +180,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                       itemCount: setRowsVar.length,
                                       itemBuilder: ((context, index1) {
                                         Count row = setRowsVar[index1];
-
                                         return DismissibleWidget(
                                             key: ObjectKey(row),
                                             performThisAction: () {
